@@ -15,7 +15,7 @@ const ConceptSchema = new mongoose.Schema({
 
 // create Schema if it doesn't already exist
 // --> need to pass it to a model in mongoose
-const Concept = mongoose.model("Concept", ConceptSchema);
+const Concept = mongoose.model("concept", ConceptSchema);
 
 // use to acces Concept-Object for CRUD operations
 module.exports = Concept;
