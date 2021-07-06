@@ -1,6 +1,8 @@
 import {Grid, Paper} from "@material-ui/core";
 import Searchbar from "./Searchbar";
 import {makeStyles} from "@material-ui/core/styles";
+import ConfidenceSlider from "./ConfidenceSlider";
+import ImageInformation from "./ImageInformation";
 
 const useStyles = makeStyles((theme) => ({
     grid:{
@@ -32,12 +34,12 @@ const LeftSide = () => {
                 </Grid>
                 <Grid item>
                     <Paper className={classes.paper}>
-                        SLider
+                        <ConfidenceSlider/>
                     </Paper>
                 </Grid>
                 <Grid item>
                     <Paper className={classes.paper}>
-                        Information
+                        <ImageInformation/>
                     </Paper>
                 </Grid>
             </Grid>

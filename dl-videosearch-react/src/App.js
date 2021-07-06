@@ -1,12 +1,9 @@
 import "./App.css";
 import Header from "./components/Header";
-import Searchbar from "./components/Searchbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
-import AddConcept from "./components/AddConcept";
-import {useState} from "react";
 import LeftSide from "./components/LeftSide";
-import RightSide from "./components/RightSide"; // for http requests
+import RightSide from "./components/RightSide";
 
 const useStyles = makeStyles((theme) => ({
     grid:{

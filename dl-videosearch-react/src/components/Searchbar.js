@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import Axios from "axios";
+import {Typography} from "@material-ui/core";
 
 
 const Searchbar = (props) => {
@@ -17,8 +18,9 @@ const Searchbar = (props) => {
 
     return (
         <div className="Searchbar">
+            <Typography>Concept:</Typography>
             <input type="text"
-                placeholder="Search for Concept..."
+                placeholder="Input Concept-Name..."
                    onChange={event => {
                        setSearchTerm((event.target.value));
                    }}
