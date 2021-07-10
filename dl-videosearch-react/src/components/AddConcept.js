@@ -10,7 +10,7 @@ const AddConcept = () => {
 
     // hook will be called whenever page will be refreshed
     useEffect(() => {
-        Axios.get("http://localhost:3002/concept").then((response) => {
+        Axios.get("http://localhost:3002/concepts").then((response) => {
             setConceptList(response.data);
         })
     }, [])

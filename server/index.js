@@ -1,34 +1,55 @@
 // Setting up an express-server
-const express = require("express");
-const mongoose = require("mongoose");
+require('dotenv').config();
+const upload = require('./routes/upload');
+const Grid = require('gridfs-stream');
+const mongoose = require('mongoose');
+const connection = require('./db');
 const cors = require("cors");
-const url = 'mongodb://localhost:27017/video_search';
+const port = process.env.PORT || 3002;
+const express = require("express");
 const app = express();
 
-const ConceptModel = require("./models/ Concept");
+// DB-Models
+const ConceptModel = require("./models/Concept");
+
+let gfs;
+connection();
+
+const conn = mongoose.connection;
+conn.once('open', function() {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("photos");
+});
 
 // parsing JSON which is coming from the Frontend
-app.use(express.json());
-app.use(cors());
+// app.use(express.json());
+// app.use(cors());
+app.use("/file", upload);
 
-// String for connecting to mongoDB and passing an object
-// mongoose.connect("mongodb+srv://adminuser:deeplearning1234@deep-learning.5fdov.mongodb.net/videosearchDB?retryWrites=true&w=majority", {
-// mongoose.connect("mongodb://127.0.0.1:27017/video_search", {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// });
-
-mongoose.connect(url, {useNewUrlParser: true});
-
-// check if connection works
-const db = mongoose.connection
-db.once('open', _ => {
-    console.log('Database connected:', url)
+app.get('/file/:filename', async (req,res) => {
+   try {
+       const file = await gfs.files.findOne({filename: req.params.filename});
+       const readStream = gfs.createReadStream(file.filename);
+       readStream.pipe(res);
+   } catch (e) {
+       console.log(e);
+       res.send('not found');
+   }
 })
 
-db.on('error', err => {
-    console.error('connection error:', err)
+app.delete('/file/:filename', async (req,res) => {
+    try {
+        await gfs.files.deleteOne({filename: req.params.filename});
+        res.send('Deleting was successfull');
+    } catch (e) {
+        console.log(e);
+        res.send('Error while deleting');
+    }
 })
+
+app.listen(port, ()=> {
+    console.log(`Server is running on Port ${port}...`);
+});
 
 // create a Route - if accessing this route,
 // we simply add something to the DB
@@ -57,13 +78,6 @@ app.get('/concepts', async (require, response) => {
        if(error){
            response.send(error);
        }
-
         response.send(result);
     })
-});
-
-
-// setup Port on which app is listening
-app.listen(3002, ()=> {
-    console.log("Server is running on Port 3002...");
 });

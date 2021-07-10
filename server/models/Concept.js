@@ -10,7 +10,7 @@ const ConceptSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    },
+    }
 });
 
 // create Schema if it doesn't already exist

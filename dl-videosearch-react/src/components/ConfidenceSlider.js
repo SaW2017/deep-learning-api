@@ -1,14 +1,22 @@
 import {useState} from "react";
 import {Slider, StepLabel, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
-const ConfidenceSlider = () => {
+const sliderStyle = makeStyles({
+    confidenceSlider: {
+        width: "inherit",
+        padding: "20px"
+    }
+});
+
+const ConfidenceSlider = (props) => {
+    const classes = sliderStyle();
     const [value, setValue] = useState([0.5, 0.95]);
-
+    const getText = (value) => `${value}`;
     const changeValue = (event, value) => {
         setValue(value);
+        props.setConfidenceThreshold(value);
     };
-
-    const getText = (value) => `${value}`;
 
     const customMarks = [
         {
@@ -34,7 +42,7 @@ const ConfidenceSlider = () => {
     ];
 
     return (
-        <div className="ConfidenceSlider">
+        <div className={classes.confidenceSlider}>
             <Typography>Confidence Intervall:</Typography>
            <Slider
                value={value}
