@@ -76,11 +76,7 @@ def clean_create_directory(directory_name: str = None):
 
 def get_folder_elements_paths(folder_path: str = 'videos') -> List[str]:
     # TODO check if folder_path exists
-
-    # element_path_list: List[str] = []
-    # for element in glob(folder_path):
-    #     element_path_list.append(element)
-    return [element for element in glob(folder_path)]
+    return [element for element in glob(f'{folder_path}/**')]
 
 
 def delete_directory_and_contents(directory_path: str) -> None:
