@@ -25,3 +25,36 @@ This was done by calculating a 64-bin histogram for each extracted frame and cal
 
 In this version, the selected key frame is simply the frame in the middle of a shot range, 
 and it is planned to replace this with a clustering method in future versions.
+
+
+## Keyframe JSON Structure
+
+```json
+{
+    "videos/everest.mp4_image_0": {
+        "concept_classifier": {
+            "classifier": "alex-net",
+            "concepts": [
+                [
+                    "Neufoundland Dog",
+                    0.89
+                ]
+            ]
+        },
+        "index": 0,
+        "keyframe": [
+            [
+                0,
+                0,
+                0
+            ],
+            [
+                0,
+                0,
+                0
+            ]
+        ],
+        "path": "videos/everest.mp4"
+    }
+}
+```
