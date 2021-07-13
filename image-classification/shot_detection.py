@@ -3,13 +3,6 @@ from utils import manhattan_distance, time_decorator, get_opencv_histogram_bin
 from keyframe import KeyFrameData
 
 
-class FrameData:
-
-    def __init__(self, frame=None):
-        self.frame = frame
-        self.histogram_bin = get_opencv_histogram_bin(self.frame)
-
-
 KeyFrameDataList = [KeyFrameData]
 
 
@@ -61,6 +54,7 @@ class ShotDetection:
         first_frame: int = 0
 
         cumulative_threshold = 0
+        count: int = 0
         for left_idx in range(len(video_frame_list) - 1):
             right_idx = left_idx + 1
             left_histogram = video_frame_list[left_idx].histogram_bin
@@ -71,9 +65,11 @@ class ShotDetection:
 
             if md > T_D or cumulative_threshold > T_H:
                 detected_shot_idx = first_frame + (right_idx - first_frame) // 2
-                self._detected_shots.append(video_frame_list[detected_shot_idx].keyframe)
+                video_frame_list[detected_shot_idx].index = count
+                self._detected_shots.append(video_frame_list[detected_shot_idx])
                 first_frame = right_idx
                 cumulative_threshold = 0
+                count += 1
                 continue
 
     def __delete__(self, instance):
