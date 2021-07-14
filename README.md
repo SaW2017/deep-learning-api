@@ -1,7 +1,7 @@
 # Shot Detection
 
 
-## Installation
+## Installation Python Environment
 
 This assignment used Anaconda as the Python environment.
 
@@ -57,4 +57,19 @@ and it is planned to replace this with a clustering method in future versions.
         "path": "videos/everest.mp4"
     }
 }
+```
+
+
+## Installation Server Environment
+
+Change into Server Folder and open terminal.
+Run:
+
+```
+npm install
+```
+and to Start Server
+run:
+```
+npm run devStart
 ```
