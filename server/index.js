@@ -41,19 +41,34 @@ app.get('/concepts', async (require, response) => {
 
 app.get('/testDB', async (req, res) => {
     try {
-        conf = req.query.confidence.split`,`.map(x=>+x);
-        await database.collection("multimedia_storage").find({
-            conceptName: req.query.concept,
-            confidence: {
-                $gte: conf[0],
-                $lte: conf[1]
-            }
-        }).toArray((error, result) => {
-            if (error) {
-                return res.status(500).send(error);
-            }
-            res.send(result);
-        });
+        req.query.confidence === "undefined"? conf = [0,1] : conf = req.query.confidence.split`,`.map(x=>+x);
+
+        if(req.query.concept === ""){
+            await database.collection("multimedia_storage").find({
+                confidence: {
+                    $gte: conf[0],
+                    $lte: conf[1]
+                }
+            }).toArray((error, result) => {
+                if (error) {
+                    return res.status(500).send(error);
+                }
+                res.send(result);
+            });
+        }else{
+            await database.collection("multimedia_storage").find({
+                conceptName: req.query.concept,
+                confidence: {
+                    $gte: conf[0],
+                    $lte: conf[1]
+                }
+            }).toArray((error, result) => {
+                if (error) {
+                    return res.status(500).send(error);
+                }
+                res.send(result);
+            });
+        }
     } catch (e) {
         console.log(e)
     }
