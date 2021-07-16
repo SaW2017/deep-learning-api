@@ -1,0 +1,221 @@
+[{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf48b"
+  },
+  "keyframeId": "everest_0_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_0_key.jpg",
+  "conceptName": "Citrus",
+  "confidence": 0.5,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf489"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf490"
+  },
+  "keyframeId": "everest_1_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_1_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.5,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf48e"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf495"
+  },
+  "keyframeId": "everest_2_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_2_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf493"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf49a"
+  },
+  "keyframeId": "everest_3_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_3_key.jpg",
+  "conceptName": "Airplane",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf498"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf49f"
+  },
+  "keyframeId": "everest_4_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_4_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.9,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf49d"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4a4"
+  },
+  "keyframeId": "everest_5_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_5_key.jpg",
+  "conceptName": "Apple",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4a2"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4a9"
+  },
+  "keyframeId": "everest_6_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_6_key.jpg",
+  "conceptName": "Airplane",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4a7"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4ae"
+  },
+  "keyframeId": "everest_7_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_7_key.jpg",
+  "conceptName": "Apple",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4ac"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4b3"
+  },
+  "keyframeId": "everest_8_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_8_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.5,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4b1"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4b8"
+  },
+  "keyframeId": "everest_9_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_9_key.jpg",
+  "conceptName": "Airplane",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4b6"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4bd"
+  },
+  "keyframeId": "everest_10_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_10_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.35,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4bb"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4c2"
+  },
+  "keyframeId": "everest_11_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_11_key.jpg",
+  "conceptName": "Citrus",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4c0"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4c7"
+  },
+  "keyframeId": "everest_12_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_12_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.5,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4c5"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4cc"
+  },
+  "keyframeId": "everest_13_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_13_key.jpg",
+  "conceptName": "Banana",
+  "confidence": 0.35,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4ca"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4d1"
+  },
+  "keyframeId": "everest_14_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_14_key.jpg",
+  "conceptName": "Apple",
+  "confidence": 0.5,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4cf"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4d6"
+  },
+  "keyframeId": "everest_15_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_15_key.jpg",
+  "conceptName": "Airplane",
+  "confidence": 0.35,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4d4"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4db"
+  },
+  "keyframeId": "everest_16_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_16_key.jpg",
+  "conceptName": "Apple",
+  "confidence": 0.9,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4d9"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4e0"
+  },
+  "keyframeId": "everest_17_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_17_key.jpg",
+  "conceptName": "Airplane",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4de"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4e5"
+  },
+  "keyframeId": "everest_18_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_18_key.jpg",
+  "conceptName": "Citrus",
+  "confidence": 0.75,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4e3"
+  }
+},{
+  "_id": {
+    "$oid": "60e9896d25cbbf76f8bdf4ea"
+  },
+  "keyframeId": "everest_19_key.jpg",
+  "filepath": "C:\\Users\\wacht\\PycharmProjects\\Clustering\\resource\\key\\everest_19_key.jpg",
+  "conceptName": "Airplane",
+  "confidence": 0.9,
+  "keyframe": {
+    "$oid": "60e9896d25cbbf76f8bdf4e8"
+  }
+}]
