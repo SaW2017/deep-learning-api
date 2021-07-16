@@ -110,8 +110,6 @@ if __name__ == '__main__':
     image_paths: List[str] = get_image_paths()
 
     fig = plt.figure(figsize=(25, 16))
-    # fig.tight_layout(pad=10.0)
-    # fig.subplots_adjust(top=0.85)
 
     print('----------------------------------')
     for idx, image_path in enumerate(image_paths):

@@ -3,10 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from functools import wraps
 import time
-import os
-import shutil
+
 from glob import glob
-from typing import Tuple, List, Dict
+from typing import List
 
 
 def get_opencv_histogram_bin(frame, bin_size: int = 64, pixel_min_range: int = 0, pixel_max_range: int = 256) -> list:
@@ -53,37 +52,11 @@ def plot_image_list(image_list: list, cols: int = 5) -> None:
     plt.show()
 
 
-def write_images_to_disk(image_list: list, directory_name: str = 'detected_shots') -> None:
-    directory_path: str = os.getcwd()
-    path = os.path.join(directory_path, directory_name)
-    clean_create_directory(directory_name)
-    os.chdir(path)
-
-    for idx, image in enumerate(image_list):
-        cv2.imwrite('image_{}.jpg'.format(idx), image)
-    os.chdir(directory_path)
-
-
-def clean_create_directory(directory_name: str = None):
-    current_directory: str = os.getcwd()
-    path = os.path.join(current_directory, directory_name)
-
-    if os.path.exists(directory_name) and os.path.isdir(directory_name):
-        delete_directory_and_contents(directory_name)
-
-    os.mkdir(path)
-
 
 def get_folder_elements_paths(folder_path: str = 'videos') -> List[str]:
     # TODO check if folder_path exists
     return [element for element in glob(f'{folder_path}/**')]
 
-
-def delete_directory_and_contents(directory_path: str) -> None:
-    try:
-        shutil.rmtree(directory_path)
-    except OSError as err:
-        print('Error: {} : {}'.format(directory_path, err.strerror))
 
 
 def time_decorator(my_func):

@@ -16,7 +16,7 @@ This will execute the shot detection and saves the detected shots in a folder ca
 
 Note: OpenCV version `4.5.1.48` was used for this project, but was not specified in the `.yml` file and all OpenCV versions >= `4.2 should probably work just fine.
 
-
+* `conda install -c pytorch pytorch`
 
 ## Content
 
