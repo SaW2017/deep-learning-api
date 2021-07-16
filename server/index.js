@@ -1,6 +1,7 @@
 // set up express & mongoose
 var express = require('express')
 var app = express()
+const cors = require('cors')
 
 require('dotenv/config');
 
@@ -8,6 +9,9 @@ require('dotenv/config');
 const MongoClient = require('mongodb').MongoClient;
 var database;
 var port = process.env.PORT || '3002'
+
+app.use(cors())
+app.use(express.json())
 
 // Start server
 app.listen(port, () => {
@@ -37,7 +41,14 @@ app.get('/concepts', async (require, response) => {
 
 app.get('/testDB', async (req, res) => {
     try {
-        await database.collection("multimedia_storage").find({}).toArray((error, result) => {
+        conf = req.query.confidence.split`,`.map(x=>+x);
+        await database.collection("multimedia_storage").find({
+            conceptName: req.query.concept,
+            confidence: {
+                $gte: conf[0],
+                $lte: conf[1]
+            }
+        }).toArray((error, result) => {
             if (error) {
                 return res.status(500).send(error);
             }
@@ -58,5 +69,4 @@ app.get('/jsonAPI', async (req, res) => {
         });
     } catch (e) {
         console.log(e)
-    }
-});
+    }});
