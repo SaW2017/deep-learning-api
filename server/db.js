@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-module.exports = async function connection(){
+module.exports = async function connection() {
     try {
         const connectionParams = {
             useNewUrlParser: true,
@@ -14,7 +14,7 @@ module.exports = async function connection(){
         db.once('open', _ => {
             console.log('Database connected:', process.env.DB)
         });
-    }catch (e) {
+    } catch (e) {
         db.on('error', err => {
             console.error('connection error:', err)
         });
