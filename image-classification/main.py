@@ -6,6 +6,8 @@ from keyframe import KeyFrameData
 import json
 from concept_classifier import ConceptClassifier, ModelType
 
+import mongo_handler
+
 
 def get_key_from_folder_path(folder_path: str) -> str:
     stripped_paths: List[str] = folder_path.split('/')
@@ -14,13 +16,6 @@ def get_key_from_folder_path(folder_path: str) -> str:
         if '.' in path:
             temp = path.split('.')
             return temp[0]
-
-
-@utils.time_decorator
-def time_measure(video_dict_keys, video_dict):
-    for key in video_dict_keys:
-        for keyframe in video_dict[key]:
-            cc.add_predictions_to_keyframe(keyframe)
 
 
 if __name__ == '__main__':
@@ -44,11 +39,7 @@ if __name__ == '__main__':
 
     # add the classification to each keyframe
 
-    video_dict_keys = video_dict.keys()
-
-    kf: KeyFrameData = None
-
-    time_measure(video_dict_keys, video_dict)
+    mongo_handler.store_all_keyframes(video_dict)
 
     print('done')
     # store results on disk (with bool condition)

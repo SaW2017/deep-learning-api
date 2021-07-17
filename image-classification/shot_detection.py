@@ -1,24 +1,27 @@
 import cv2
 from utils import manhattan_distance, time_decorator, get_opencv_histogram_bin
 from keyframe import KeyFrameData
-
-
+from concept_classifier import ConceptClassifier
+import asyncio
 KeyFrameDataList = [KeyFrameData]
+
+concept_classifier = ConceptClassifier()
 
 
 class ShotDetection:
 
     def __init__(self):
         # Capture frame-by-frame
-        self._detected_shots: list = []
+        self._detected_shots: KeyFrameDataList = []
 
-    def get_keyframes(self, video_path: str = None) -> list:
+    def get_keyframes(self, video_path: str = None) -> KeyFrameDataList:
         print('[Capture Video]')
         if video_path is None or video_path == '':
             raise Exception('Video path must be provided!')
 
         video_frame_list = self._transform_video_to_frame_data_list(video_path)
         self._keyframe_detection(video_frame_list)
+        self._add_confidence_and_predictions()
 
         return self._detected_shots
 
@@ -46,7 +49,8 @@ class ShotDetection:
 
         return frames
 
-    def _keyframe_detection(self, video_frame_list: KeyFrameDataList, threshold_d: int = 200000, threshold_h: int = 80000):
+    def _keyframe_detection(self, video_frame_list: KeyFrameDataList, threshold_d: int = 200000,
+                            threshold_h: int = 80000):
         print('[Detecting Keyframes]')
         T_D: int = threshold_d
         T_H: int = threshold_h
@@ -67,10 +71,16 @@ class ShotDetection:
                 detected_shot_idx = first_frame + (right_idx - first_frame) // 2
                 video_frame_list[detected_shot_idx].index = count
                 self._detected_shots.append(video_frame_list[detected_shot_idx])
+                concept_classifier.add_predictions_to_keyframe(video_frame_list[detected_shot_idx])
                 first_frame = right_idx
                 cumulative_threshold = 0
                 count += 1
                 continue
+
+
+    def _add_confidence_and_predictions(self):
+        for keyframe in self._detected_shots:
+            concept_classifier.add_predictions_to_keyframe(keyframe)
 
     def __delete__(self, instance):
         cv2.destroyAllWindows()
