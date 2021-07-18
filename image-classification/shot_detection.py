@@ -71,11 +71,14 @@ class ShotDetection:
                 detected_shot_idx = first_frame + (right_idx - first_frame) // 2
                 video_frame_list[detected_shot_idx].index = count
                 self._detected_shots.append(video_frame_list[detected_shot_idx])
-                concept_classifier.add_predictions_to_keyframe(video_frame_list[detected_shot_idx])
+                # concept_classifier.add_predictions_to_keyframe(video_frame_list[detected_shot_idx])
                 first_frame = right_idx
                 cumulative_threshold = 0
                 count += 1
                 continue
+
+            if count % 500 == 0:
+                print('still detecting keyframes')
 
 
     def _add_confidence_and_predictions(self):
