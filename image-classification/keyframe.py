@@ -20,10 +20,10 @@ class NumpyEncoder(json.JSONEncoder):
 class KeyframeDocuments(Document):
     keyframe_id: str = fields.StringField(required=True)
     file_path: str = fields.StringField(required=True)
-    # concept_name: str = fields.StringField(required=True)
-    # concept_confidence: List[Tuple[str, int]] = fields.ListField(required=True)
+    concept_name: str = fields.StringField(required=True)
+    concept_confidence: List[Tuple[str, int]] = fields.ListField(required=True)
     # Image with size, False = dont force the size of the image
-    # keyframe = fields.ListField(required=True)
+    keyframe = fields.ListField(required=True)
     # keyframe = fields.ImageField(thumbnail_size=(500, 450, False))
 
 
@@ -35,17 +35,17 @@ class KeyFrameData(object):
         self.index = index
         self.keyframe_id = f'{self.file_path}_{str(self.index)}'
         self.histogram_bin = get_opencv_histogram_bin(self.keyframe)
-        self.classifier = None  # TODO
+        self.classifier = 'resnet'
         self.concepts: List[Tuple] = []
 
     def get_mongo_representation(self) -> KeyframeDocuments:
         db_keyframe: KeyframeDocuments = KeyframeDocuments(
             keyframe_id=f'{self.file_path}_image_{str(self.index)}',
             file_path=self.file_path,
-            # concept_name=self.classifier,
-            # concept_confidence=self.concepts,
-            keyframe=self.keyframe.tolist()
-#             keyframe=self.__convert_keyframe_to_mongo_record()
+            concept_name=self.classifier,
+            concept_confidence=self.concepts,
+            # keyframe=self.keyframe.tolist()
+            keyframe=self.__convert_keyframe_to_mongo_record()
         )
 
         return db_keyframe
