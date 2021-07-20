@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from keyframe import KeyFrameData
 
-
 from PIL import Image
 
 
@@ -51,15 +50,9 @@ class ConceptClassifier:
         percentage = torch.nn.functional.softmax(out, dim=1)[0] * 100
 
         keyframe_data.classifier = 'resnet'
-        keyframe_data.concepts = [(self.imagenet_classes[idx], percentage[idx].item()) for idx in indices[0]]
 
-        # _, indices = torch.sort(model_output, descending=True)
-        # percentage = torch.nn.functional.softmax(model_output, dim=1)
-        # concept_and_confidene = [(self.imagenet_classes[idx], percentage[idx].item()) for idx in indices[0][:5]]
-        #
-        #
-        # for p in concept_and_confidene:
-        #     print(self.imagenet_classes[indices], p[indices].item())
+        keyframe_data.concepts = [(self.imagenet_classes[idx], percentage[idx].item()) for idx in indices[0] if
+                                  percentage[idx].item() > 0.1]
 
         return keyframe_data
 

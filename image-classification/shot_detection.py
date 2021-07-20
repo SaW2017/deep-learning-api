@@ -2,7 +2,9 @@ import cv2
 from utils import manhattan_distance, time_decorator, get_opencv_histogram_bin
 from keyframe import KeyFrameData
 from concept_classifier import ConceptClassifier
-import asyncio
+import concurrent.futures
+from multiprocessing import Pool
+
 KeyFrameDataList = [KeyFrameData]
 
 concept_classifier = ConceptClassifier()
@@ -21,7 +23,8 @@ class ShotDetection:
 
         video_frame_list = self._transform_video_to_frame_data_list(video_path)
         self._keyframe_detection(video_frame_list)
-        self._add_confidence_and_predictions()
+        self._detected_shots = self._detected_shots[:10]
+        self._add_concepts_and_predictions()
 
         return self._detected_shots
 
@@ -34,23 +37,19 @@ class ShotDetection:
 
         video_capture = cv2.VideoCapture(video_path)
 
-        count = 0
-
         while video_capture.isOpened():
-            # while video_capture.isOpened() and count < 1000:
             valid_frame, frame = video_capture.read()
             if valid_frame:
                 frames.append(KeyFrameData(frame, video_path))
             else:
                 break
-            count += 1
 
         video_capture.release()
 
         return frames
 
-    def _keyframe_detection(self, video_frame_list: KeyFrameDataList, threshold_d: int = 200000,
-                            threshold_h: int = 80000):
+    def _keyframe_detection(self, video_frame_list: KeyFrameDataList, threshold_d: int = 250000,
+                            threshold_h: int = 90000):
         print('[Detecting Keyframes]')
         T_D: int = threshold_d
         T_H: int = threshold_h
@@ -71,7 +70,6 @@ class ShotDetection:
                 detected_shot_idx = first_frame + (right_idx - first_frame) // 2
                 video_frame_list[detected_shot_idx].index = count
                 self._detected_shots.append(video_frame_list[detected_shot_idx])
-                # concept_classifier.add_predictions_to_keyframe(video_frame_list[detected_shot_idx])
                 first_frame = right_idx
                 cumulative_threshold = 0
                 count += 1
@@ -80,10 +78,11 @@ class ShotDetection:
             if count % 500 == 0:
                 print('still detecting keyframes')
 
-
-    def _add_confidence_and_predictions(self):
+    def _add_concepts_and_predictions(self):
+        print(f'Adding concepts to keyframe')
         for keyframe in self._detected_shots:
             concept_classifier.add_predictions_to_keyframe(keyframe)
+        print('Finished adding concepts to keyframes')
 
     def __delete__(self, instance):
         cv2.destroyAllWindows()
