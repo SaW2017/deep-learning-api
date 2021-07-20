@@ -1,87 +1,56 @@
-// set up express & mongoose
-var express = require('express')
-var app = express()
-const cors = require('cors')
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const PORT = 3002;
+const mongoose = require("mongoose");
+app.use(cors());
 
-require('dotenv/config');
+let KeyframeModel = require('./model');
 
-// // DB-Models
-const MongoClient = require('mongodb').MongoClient;
-var database;
-var port = process.env.PORT || '3002'
+const router = express.Router();
 
-app.use(cors())
-app.use(express.json())
-
-// Start server
-app.listen(port, () => {
-    MongoClient.connect('mongodb://localhost:27017', {
-        useNewUrlParser: true
-    }, (err, result) => {
-        if (err)
-            throw err
-        database = result.db('video_search');
-        console.log('Server listening on port', port)
-    });
-})
-
-// Routes
-app.get('/concepts', async (require, response) => {
-    try { // within Filter: eg. $where: {conceptName: "Airplane"}
-        await database.collection("concepts").find({}).toArray((error, result) => {
-            if (error) {
-                return res.status(500).send(error);
-            }
-            response.send(result);
-        })
-    } catch (e) {
-        console.log(e)
-    }
+mongoose.connect("mongodb://127.0.0.1:27017/keyframe_small", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
-app.get('/testDB', async (req, res) => {
-    try {
-        req.query.confidence === "undefined"? conf = [0,1] : conf = req.query.confidence.split`,`.map(x=>+x);
+const db = mongoose.connection;
 
-        if(req.query.concept === ""){
-            await database.collection("multimedia_storage").find({
-                confidence: {
-                    $gte: conf[0],
-                    $lte: conf[1]
-                }
-            }).toArray((error, result) => {
-                if (error) {
-                    return res.status(500).send(error);
-                }
-                res.send(result);
-            });
-        }else{
-            await database.collection("multimedia_storage").find({
-                conceptName: req.query.concept,
-                confidence: {
-                    $gte: conf[0],
-                    $lte: conf[1]
-                }
-            }).toArray((error, result) => {
-                if (error) {
-                    return res.status(500).send(error);
-                }
-                res.send(result);
-            });
+db.once("open", function () {
+    console.log("Connection with MongoDB was successful");
+});
+
+app.use('/', router);
+
+app.listen(PORT, function () {
+    console.log("Server is running on Port: " + PORT);
+});
+
+
+router.route('/getHelloWorld').get((request, response) => {
+    response.send('Hello World');
+});
+
+router.route("/find").get(function (req, res) {
+    let filter = {}
+    KeyframeModel.find(filter, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            console.log('no error');
+            res.json(result);
         }
-    } catch (e) {
-        console.log(e)
-    }
+    });
 });
 
-app.get('/jsonAPI', async (req, res) => {
-    try {
-        await database.collection("jsonAPI").find({}).toArray((error, result) => {
-            if (error) {
-                return res.status(500).send(error);
-            }
-            res.send(result);
-        });
-    } catch (e) {
-        console.log(e)
-    }});
+router.route('/save').get((request, response) => {
+
+    KeyframeModel.findOne({}, (err, result) => {
+        if (err) {
+            response.send(err);
+        } else {
+            console.log('no error');
+            response.json(result);
+        }
+    });
+});
