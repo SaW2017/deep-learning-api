@@ -101,7 +101,3 @@ class ConceptClassifier:
     def set_model_type(self, model_type: ModelType = None):
         if model_type is not None:
             self.model_type = model_type
-
-
-if __name__ == '__main__':
-    cc = ConceptClassifier()
