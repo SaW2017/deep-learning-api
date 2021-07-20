@@ -1,8 +1,7 @@
 import cv2
-from utils import manhattan_distance, time_decorator, get_opencv_histogram_bin
+from utils import manhattan_distance
 from keyframe import KeyFrameData
 from concept_classifier import ConceptClassifier
-import concurrent.futures
 from multiprocessing import Pool
 
 KeyFrameDataList = [KeyFrameData]

@@ -1,10 +1,7 @@
 import torch
 from torchvision import models, transforms
-from typing import Tuple, List, Dict
-from PIL import Image
+from typing import Tuple, List
 from enum import Enum
-from glob import glob
-import matplotlib.pyplot as plt
 import numpy as np
 from keyframe import KeyFrameData
 
