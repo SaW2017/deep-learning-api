@@ -3,12 +3,9 @@ from typing import List, Dict
 import shot_detection
 import utils
 from keyframe import KeyFrameData
-import json
-from concept_classifier import ConceptClassifier, ModelType
+from concept_classifier import ConceptClassifier
 
 import mongo_handler
-
-import concurrent.futures
 
 
 def get_key_from_folder_path(folder_path: str) -> str:
@@ -35,9 +32,7 @@ if __name__ == '__main__':
         folder_key: str = get_key_from_folder_path(folder_path)
         video_dict[folder_key] = st.get_keyframes(folder_path)
 
-    # mongo_handler.store_all_keyframes(video_dict)
-
-    print(video_dict[get_key_from_folder_path(folder_path_list[0])][0])
+    mongo_handler.store_all_keyframes(video_dict)
 
     # store results on disk (with bool condition)
     # TODO store in mongoDB
