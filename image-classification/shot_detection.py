@@ -2,7 +2,6 @@ import cv2
 from utils import manhattan_distance
 from keyframe import KeyFrameData
 from concept_classifier import ConceptClassifier
-from multiprocessing import Pool
 
 KeyFrameDataList = [KeyFrameData]
 
@@ -12,22 +11,22 @@ concept_classifier = ConceptClassifier()
 class ShotDetection:
 
     def __init__(self):
-        # Capture frame-by-frame
         self._detected_shots: KeyFrameDataList = []
 
     def get_keyframes(self, video_path: str = None) -> KeyFrameDataList:
-        print('[Capture Video]')
+        print(f'[Capture Video] for video path: {video_path}')
         if video_path is None or video_path == '':
             raise Exception('Video path must be provided!')
 
         video_frame_list = self._transform_video_to_frame_data_list(video_path)
+
+        self._detected_shots = []
         self._keyframe_detection(video_frame_list)
-        self._detected_shots = self._detected_shots[:10]
+        # self._detected_shots = self._detected_shots[:2]
         self._add_concepts_and_predictions()
 
         return self._detected_shots
 
-    # @time_decorator
     def _transform_video_to_frame_data_list(self, video_path: str = None) -> KeyFrameDataList:
         print('[Transform Video To Frama Data List]')
         if video_path is None or video_path == '':
@@ -74,7 +73,7 @@ class ShotDetection:
                 count += 1
                 continue
 
-            if count % 500 == 0:
+            if count % 1000 == 0:
                 print('still detecting keyframes')
 
     def _add_concepts_and_predictions(self):

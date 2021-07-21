@@ -4,18 +4,12 @@ import shot_detection
 import utils
 from keyframe import KeyFrameData
 from concept_classifier import ConceptClassifier
+import FileWriter
 
 import mongo_handler
 
-
-def get_key_from_folder_path(folder_path: str) -> str:
-    stripped_paths: List[str] = folder_path.split('/')
-
-    for path in stripped_paths:
-        if '.' in path:
-            temp = path.split('.')
-            return temp[0]
-
+FRONT_END_PATH: str = '../../deep-learning-frontend/'
+IMAGES_PUBLIC_PATH: str = 'public/images/'
 
 if __name__ == '__main__':
     print('start keyframe detection')
@@ -24,12 +18,16 @@ if __name__ == '__main__':
 
     print('finished keyframe detection')
 
-    folder_path_list: List[str] = utils.get_folder_elements_paths()
+    folder_path_list: List[str] = FileWriter.get_folder_elements_paths()
     video_dict: Dict[str, List[KeyFrameData]] = {}
+
+    # print(FileWriter.get_folder_elements_paths('../../deep-learning-frontend/public'))
+
+    # FileWriter.clean_create_directory(FRONT_END_PATH, IMAGES_PUBLIC_PATH)
 
     # get the keyframes for each video and store them
     for folder_path in folder_path_list:
-        folder_key: str = get_key_from_folder_path(folder_path)
+        folder_key: str = utils.get_key_from_folder_path(folder_path)
         video_dict[folder_key] = st.get_keyframes(folder_path)
 
     mongo_handler.store_all_keyframes(video_dict)

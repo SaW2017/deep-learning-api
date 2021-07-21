@@ -7,7 +7,7 @@ from keyframe import KeyFrameData, KeyframeDocuments
 
 mongo_url: str = '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services'
 
-connect(db="keyframe_small", host="localhost", port=27017)
+connect(db="keyframe_test", host="localhost", port=27017)
 
 id_count = 0
 

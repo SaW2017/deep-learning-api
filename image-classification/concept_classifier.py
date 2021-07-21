@@ -28,7 +28,7 @@ class ConceptClassifier:
         self.imagenet_classes: List[str] = get_imagenet_classes()
 
     def add_predictions_to_keyframe(self, keyframe_data: KeyFrameData) -> KeyFrameData:
-        transformed_image = self.get_transformed_image(keyframe_data.keyframe)
+        transformed_image = self.get_transformed_image(keyframe_data.image)
         transformed_batch = torch.unsqueeze(transformed_image, 0)
         # model = self.get_model()
         # model_output = model(transformed_batch)
@@ -48,15 +48,16 @@ class ConceptClassifier:
 
         keyframe_data.classifier = 'resnet'
 
-        keyframe_data.concepts = [(self.imagenet_classes[idx], percentage[idx].item()) for idx in indices[0] if
-                                  percentage[idx].item() > 0.1]
+        norm_sum = sum([percentage[idx].item() for idx in indices[0]])
+        keyframe_data.concepts = [(self.imagenet_classes[idx], percentage[idx].item() / norm_sum) for idx in
+                                  indices[0] if percentage[idx].item() / norm_sum > 0.009]
 
         return keyframe_data
 
     def get_prediction_and_percentage(self, image_path: str, model: models) -> Tuple[str, float]:
         image_net_classes: List[str] = get_imagenet_classes()
         image = Image.open(image_path)
-        transformed_image = get_transformed_image(image)
+        transformed_image = self.get_transformed_image(image)
         transformed_batch = torch.unsqueeze(transformed_image, 0)
         model_output = model(transformed_batch)
 

@@ -52,11 +52,9 @@ def plot_image_list(image_list: list, cols: int = 5) -> None:
     plt.show()
 
 
-
 def get_folder_elements_paths(folder_path: str = 'videos') -> List[str]:
     # TODO check if folder_path exists
     return [element for element in glob(f'{folder_path}/**')]
-
 
 
 def time_decorator(my_func):
@@ -70,3 +68,12 @@ def time_decorator(my_func):
         return output
 
     return timed
+
+
+def get_key_from_folder_path(folder_path: str) -> str:
+    stripped_paths: List[str] = folder_path.split('/')
+
+    for path in stripped_paths:
+        if '.' in path:
+            temp = path.split('.')
+            return temp[0]
