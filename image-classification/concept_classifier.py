@@ -48,6 +48,7 @@ class ConceptClassifier:
 
         keyframe_data.classifier = 'resnet'
 
+
         norm_sum = sum([percentage[idx].item() for idx in indices[0]])
         keyframe_data.concepts = [(self.imagenet_classes[idx], percentage[idx].item() / norm_sum) for idx in
                                   indices[0] if percentage[idx].item() / norm_sum > 0.009]
