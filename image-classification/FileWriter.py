@@ -35,9 +35,10 @@ def delete_directory_and_contents(root_folder: str, directory_path: str) -> None
         path = os.path.join(root_folder, directory_path)
         print(f'Path: {path}')
         shutil.rmtree(path)
-        # os.remove(directory_path)
     except OSError as err:
         print('Error: {} : {}'.format(directory_path, err.strerror))
+
+
 
 
 def get_folder_elements_paths(folder_path: str = 'videos') -> List[str]:

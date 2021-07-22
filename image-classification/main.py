@@ -6,6 +6,8 @@ from keyframe import KeyFrameData
 from concept_classifier import ConceptClassifier
 import FileWriter
 
+import os
+
 import mongo_handler
 
 FRONT_END_PATH: str = '../../deep-learning-frontend/'
@@ -23,14 +25,19 @@ if __name__ == '__main__':
 
     # print(FileWriter.get_folder_elements_paths('../../deep-learning-frontend/public'))
 
-    # FileWriter.clean_create_directory(FRONT_END_PATH, IMAGES_PUBLIC_PATH)
+    FileWriter.clean_create_directory(FRONT_END_PATH, IMAGES_PUBLIC_PATH)
+
+    frontend_image_path: str = os.path.join(FRONT_END_PATH, IMAGES_PUBLIC_PATH)
 
     # get the keyframes for each video and store them
+    # also creating folder for images
     for folder_path in folder_path_list:
         folder_key: str = utils.get_key_from_folder_path(folder_path)
         video_dict[folder_key] = st.get_keyframes(folder_path)
+        path = utils.get_key_from_folder_path(folder_path)
+        FileWriter.clean_create_directory(frontend_image_path, path)
 
-    mongo_handler.store_all_keyframes(video_dict)
+    # mongo_handler.store_all_keyframes(video_dict)
 
     # store results on disk (with bool condition)
     # TODO store in mongoDB
