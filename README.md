@@ -68,18 +68,6 @@ https://medium.com/@LondonAppBrewery/how-to-download-install-mongodb-on-windows-
 
 Afterwards create a Database with the name: video_search and a collection keyframe_documents
 
-
-In Project Server Folder: Navigate to .\MongoDBHelper
-
-Copy Mongoimport. exe to: C:\Program Files\MongoDB\Server\4.4\bin  (Installation-Folder of your MongoDB)
-Also Copy Collection of .JSON file to that folder.
-
-Open terminal in this folder and run:
-
-```
-mongoimport --db video_search --collection keyframe_documents --drop --jsonArray --batchSize 1 --file ./keyframe_documents.json
-```
-
 -------------------
 
 In Project deep-learning-api:
