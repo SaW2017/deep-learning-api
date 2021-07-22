@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Dict
 import shutil
 from glob import glob
 import cv2
@@ -15,8 +15,9 @@ def write_images_to_disk(keyframe_list: List[KeyFrameData],
     path = os.path.join(root_folder, directory_name, video_name)
     os.chdir(path)
 
+    print(os.curdir)
     for idx, keyframe_data in enumerate(keyframe_list):
-        cv2.imwrite(f'{keyframe_data.keyframe_id}', keyframe_data.image)
+        cv2.imwrite(f'{keyframe_data.index}', keyframe_data.image)
 
 
 def clean_create_directory(root_folder: str, directory_name: str):
@@ -35,9 +36,18 @@ def delete_directory_and_contents(root_folder: str, directory_path: str) -> None
         path = os.path.join(root_folder, directory_path)
         print(f'Path: {path}')
         shutil.rmtree(path)
-        # os.remove(directory_path)
     except OSError as err:
         print('Error: {} : {}'.format(directory_path, err.strerror))
+
+
+def store_all_keyframes(public_image_folder_path: str, video_dict: Dict[str, List[KeyFrameData]]):
+    os.chdir(public_image_folder_path)
+    for video_key in video_dict.keys():
+        os.chdir(video_key)
+        print(f'Storing keyframes in folder: {os.path.join(public_image_folder_path, video_key)}')
+        for keyframe_data in video_dict[video_key]:
+            cv2.imwrite(f'{keyframe_data.index}.png', keyframe_data.image)
+        os.chdir('../')
 
 
 def get_folder_elements_paths(folder_path: str = 'videos') -> List[str]:

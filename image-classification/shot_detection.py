@@ -13,7 +13,7 @@ class ShotDetection:
     def __init__(self):
         self._detected_shots: KeyFrameDataList = []
 
-    def get_keyframes(self, video_path: str = None) -> KeyFrameDataList:
+    def get_keyframes(self, video_path: str = None, add_concepts_to_keyframe_list: bool = False) -> KeyFrameDataList:
         print(f'[Capture Video] for video path: {video_path}')
         if video_path is None or video_path == '':
             raise Exception('Video path must be provided!')
@@ -22,8 +22,9 @@ class ShotDetection:
 
         self._detected_shots = []
         self._keyframe_detection(video_frame_list)
-        # self._detected_shots = self._detected_shots[:2]
-        self._add_concepts_and_predictions()
+
+        if add_concepts_to_keyframe_list:
+            self._add_concepts_and_predictions()
 
         return self._detected_shots
 
