@@ -31,32 +31,57 @@ router.route('/getHelloWorld').get((request, response) => {
     response.send('Hello World');
 });
 
-router.route("/filter").get(function (req, res) {
-    try{
-        let filter = {}
-        regexString = `^.*${req.query.concept}.*$`;
-        console.log("in API find")
-        req.query.confidence === "" ? conf = [0, 1] : conf = req.query.confidence.split`,`.map(x => +x);
-        //if (req.query.concept === "") {
-            filter = {
-                'concept_confidence':{$elemMatch:{$elemMatch:{$regex: regexString , $options: 'i'}}}
-                }
+const conceptStringHelper = (concept) => {
+    if (concept === undefined || concept === "" || !concept instanceof String) {
+        return "";
+    }
+    return concept.toLowerCase();
+}
 
-       // }else{
+const confidenceStringHelper = (confidence) => {
+    if (confidence === undefined || confidence === "") {
+        return [0, 1];
+    }
+    let conf_split = confidence.split(',')
+
+    if (conf_split.length !== 2) {
+        return [0, 1];
+    }
+    return [conf_split[0], conf_split[1]];
+};
+
+router.route("/filter").get(function (request, response) {
+    try {
+        let filter = {}
+        console.log("in API find")
+        let concept = conceptStringHelper(request.query.concept);
+        let confidence = confidenceStringHelper(request.query.confidence);
+        let lower_confidence = confidence[0];
+        let upper_confidence = confidence[1];
+        // console.log('concept: ' + concept);
+        // console.log('confidence: ' + lower_confidence);
+        // console.log('confidence: ' + upper_confidence);
+        let regexString = `^.*${concept}.*$`;
+        //if (req.query.concept === "") {
+        filter = {
+            'concept_confidence': {$elemMatch: {$elemMatch: {$regex: regexString, $options: 'i'}}}
+        }
+
+        // }else{
 
         //}
 
 
         KeyframeModel.find(filter, function (err, result) {
             if (err) {
-                res.send(err);
+                response.send(err);
             } else {
                 console.log('no error');
-                res.json(result);
+                response.json(result);
                 console.log(result)
             }
         });
-    }catch (e) {
+    } catch (e) {
 
     }
 });
