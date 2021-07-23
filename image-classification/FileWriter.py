@@ -4,6 +4,7 @@ import shutil
 from glob import glob
 import cv2
 from keyframe import KeyFrameData
+import platform
 
 
 def write_images_to_disk(keyframe_list: List[KeyFrameData],
@@ -22,6 +23,9 @@ def write_images_to_disk(keyframe_list: List[KeyFrameData],
 
 def clean_create_directory(root_folder: str, directory_name: str):
     print(f'{clean_create_directory.__name__}')
+    root_folder = get_platform_path(root_folder)
+    directory_name = get_platform_path(directory_name)
+
     path = os.path.join(root_folder, directory_name)
 
     if os.path.exists(path) and os.path.isdir(path):
@@ -37,7 +41,7 @@ def delete_directory_and_contents(root_folder: str, directory_path: str) -> None
         print(f'Path: {path}')
         shutil.rmtree(path)
     except OSError as err:
-        print('Error: {} : {}'.format(directory_path, err.strerror))
+        print(f'Error: {directory_path} : {err.strerror}')
 
 
 def store_all_keyframes(public_image_folder_path: str, video_dict: Dict[str, List[KeyFrameData]]):
@@ -47,9 +51,22 @@ def store_all_keyframes(public_image_folder_path: str, video_dict: Dict[str, Lis
         print(f'Storing keyframes in folder: {os.path.join(public_image_folder_path, video_key)}')
         for keyframe_data in video_dict[video_key]:
             cv2.imwrite(f'{keyframe_data.index}.png', keyframe_data.image)
-        os.chdir('../')
+        os.chdir(get_platform_path('../'))
 
 
 def get_folder_elements_paths(folder_path: str = 'videos') -> List[str]:
     # TODO check if folder_path exists
-    return [element for element in glob(f'{folder_path}/**')]
+    return [get_platform_path(element) for element in glob(f'{folder_path}/**')]
+
+
+def get_platform_path(path: str) -> str:
+    win_platform: str = 'wind'
+    linux_platform: str = 'linux'
+    macos_platform: str = 'darwin'
+    current_platform: str = platform.system()
+    current_platform = current_platform.lower()
+    if win_platform in current_platform:
+        path = path.replace('/', '\\')
+    elif linux_platform in current_platform or macos_platform in current_platform:
+        path = path.replace('\\', '/')
+    return path
