@@ -31,6 +31,37 @@ router.route('/getHelloWorld').get((request, response) => {
     response.send('Hello World');
 });
 
+router.route("/filter").get(function (req, res) {
+    try{
+        let filter = {}
+        regexString = `^.*${req.query.concept}.*$`;
+        console.log("in API find")
+        req.query.confidence === "" ? conf = [0, 1] : conf = req.query.confidence.split`,`.map(x => +x);
+        //if (req.query.concept === "") {
+            filter = {
+                'concept_confidence':{$elemMatch:{$elemMatch:{$regex: regexString , $options: 'i'}}}
+                }
+
+       // }else{
+
+        //}
+
+
+        KeyframeModel.find(filter, function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+                console.log('no error');
+                res.json(result);
+                console.log(result)
+            }
+        });
+    }catch (e) {
+
+    }
+});
+
+
 router.route("/find").get(function (req, res) {
     let filter = {}
     KeyframeModel.find(filter, function (err, result) {

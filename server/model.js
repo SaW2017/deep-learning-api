@@ -11,13 +11,12 @@ let keyframe = new Schema({
     file_path: {
         type: String
     },
-    // concept_name: {
-    //     type: String
-    // },
-    // concept_confidence: {
-    //     type: Array // TODO should be more specific
-    // }
-
+    classifier: {
+        type: String
+    },
+    concept_confidence: {
+        type: Array
+    }
 });
 
 module.exports = mongoose.model('keyframe_document', keyframe);
