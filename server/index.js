@@ -28,7 +28,7 @@ const confidenceStringHelper = (confidence) => {
     return [conf_split[0], conf_split[1]];
 };
 
-mongoose.connect("mongodb://127.0.0.1:27017/keyframe_small", {
+mongoose.connect("mongodb://127.0.0.1:27017/keyframe_test", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -54,20 +54,15 @@ router.route('/getHelloWorld').get((request, response) => {
 router.route("/filter").get(function (request, response) {
     try {
         let filter = {}
-        console.log("in API find")
         let concept = conceptStringHelper(request.query.concept);
         let confidence = confidenceStringHelper(request.query.confidence);
-        let lower_confidence = confidence[0];
-        let upper_confidence = confidence[1];
+        let lower_confidence = Number(confidence[0]);
+        let upper_confidence = Number(confidence[1]);
         let regexString = `^.*${concept}.*$`;
+
         filter = {
-            'concept_confidence': {$elemMatch: {$elemMatch: {$regex: regexString, $options: 'i'}}}
+            'concept_confidence': {$elemMatch: {concept: {$regex: regexString, $options: 'i'} , confidence:{$gte: lower_confidence, $lte: upper_confidence}}}
         }
-
-        // }else{
-
-        //}
-
 
         KeyframeModel.find(filter, function (err, result) {
             if (err) {
@@ -75,11 +70,11 @@ router.route("/filter").get(function (request, response) {
             } else {
                 console.log('no error');
                 response.json(result);
-                console.log(result)
             }
         });
     } catch (e) {
-
+        console.log('Error:');
+        console.log(e);
     }
 });
 
