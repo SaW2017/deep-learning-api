@@ -1,17 +1,24 @@
-# Shot Detection
+# Video Search Project - API - Server Side
+
+- [Video Search Project - API - Server Side](#video-search-project---api---server-side)
+  - [Overview](#overview)
+  - [Installation Python Environment](#installation-python-environment)
+  - [Server Installation](#server-installation)
+  - [Keyframe MongoDB Structure](#keyframe-mongodb-structure)
+
+## Overview
 
 The server side implementation is split into two parts.
 
 The keyframe extraction, image classification and storing of those values into separate image files and the mongoDB is done in the subfolder `image-classification`, which uses Python for those tasks (see [Python Installation](#installation-python-environment)).
 
 The server, that provides exposes the mongoDB to potential client applications is in the  `server` subfolder. The installation and startup guide can be found in the section [Server Installation](#installation-server-environment).
- 
 
 ## Installation Python Environment
 
-This assignment used Anaconda as the Python environment.
+This project used Anaconda as the Python environment.
 
-To install this environment, please enter the following command in the root directory of this project in your terminal:
+To install this environment, please enter the following command in the `image-classification` directory of this project in your terminal:
 
 ` conda env create -f environment.yml`. Then activate the environment using the command: `conda activate video_search_project`.
 
@@ -22,8 +29,6 @@ This will execute the shot detection and saves the detected shots in a folder ca
 
 Note: OpenCV version `4.5.1.48` was used for this project, but was not specified in the `.yml` file and all OpenCV versions >= `4.2 should probably work just fine.
 
-* `conda install -c pytorch pytorch`
-
 ## Server Installation
 
 A server is needed for communicating with the `mongoDB` collection.
@@ -32,11 +37,6 @@ To start this server, change to the `server` directory and enter the command `no
 After executing the command, the following should be displayed:
 
 ![nodemon output](figures/nodemon_terminal_output.png)
-
-## Content
-
-
-
 
 ## Keyframe MongoDB Structure
 
@@ -65,29 +65,4 @@ This document was extracted from the first keyframe of the video `07031.mp4`.
     { concept: "845: 'syringe',", confidence: 0.009476279307357952 }
   ]
 }
-```
-
-
-## Installation Server Environment
-
-First install MongoDB. Explanation is here:
-install MongoDB
-https://medium.com/@LondonAppBrewery/how-to-download-install-mongodb-on-windows-4ee4b3493514
-
-Afterwards create a Database with the name: video_search and a collection keyframe_documents
-
--------------------
-
-In Project deep-learning-api:
-
-Change into Server Folder and open terminal.
-Run:
-
-```
-npm install
-```
-and to Start Server
-run:
-```
-npm run devStart
 ```
