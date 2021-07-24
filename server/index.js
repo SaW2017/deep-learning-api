@@ -81,7 +81,7 @@ router.route("/filter").get(function (request, response) {
 
 router.route("/find").get(function (req, res) {
     let filter = {}
-    KeyframeModel.find(filter, function (err, result) {
+    KeyframeModel.aggregate([{$sample: {size: 30}}]).then((err, result) => {
         if (err) {
             res.send(err);
         } else {
