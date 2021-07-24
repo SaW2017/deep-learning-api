@@ -7,6 +7,7 @@ from concept_classifier import ConceptClassifier
 import FileWriter
 
 import os
+import platform
 
 import mongo_handler
 
@@ -29,7 +30,7 @@ if __name__ == '__main__':
     # also creating folder for images
     for folder_path in folder_path_list:
         folder_key: str = utils.get_key_from_folder_path(folder_path)
-        video_dict[folder_key] = st.get_keyframes(folder_path)
+        video_dict[folder_key] = st.get_keyframes(folder_path, True)
         path = utils.get_key_from_folder_path(folder_path)
         FileWriter.clean_create_directory(frontend_image_path, path)
 
@@ -37,7 +38,6 @@ if __name__ == '__main__':
     FileWriter.store_all_keyframes(frontend_image_path, video_dict)
 
     print('storing keyframe data in mongoDB')
-    # mongo_handler.store_all_keyframes(video_dict)
+    mongo_handler.store_all_keyframes(video_dict)
 
-    # store results on disk (with bool condition)
-    # TODO store in mongoDB
+

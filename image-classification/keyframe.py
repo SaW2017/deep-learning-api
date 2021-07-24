@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 
 import utils
 import json
@@ -17,7 +17,7 @@ class KeyframeDocuments(Document):
     keyframe_id: str = fields.StringField(required=True)
     file_path: str = fields.StringField(required=True)
     classifier: str = fields.StringField(required=True)
-    concept_confidence: List[Tuple[str, int]] = fields.ListField(required=True)
+    concept_confidence: List[Dict[str, int]] = fields.ListField(required=True)
 
 
 class KeyFrameData(object):
@@ -28,8 +28,8 @@ class KeyFrameData(object):
         self.index: int = index
         self.keyframe_id: str = None
         self.histogram_bin = utils.get_opencv_histogram_bin(self.image)
-        self.classifier: str = 'resnet'
-        self.concepts: List[Tuple] = []
+        self.classifier: str = 'resnet101'
+        self.concepts: List[Dict[str, float]] = []
 
     def get_mongo_representation(self) -> KeyframeDocuments:
         self.keyframe_id = f'{str(self.index)}.png'
@@ -37,7 +37,7 @@ class KeyFrameData(object):
             keyframe_id=f'{self.keyframe_id}',
             file_path=self.folder_path,
             classifier=self.classifier,
-            concept_confidence=self.concepts,
+            concept_confidence=self.concepts
         )
         return db_keyframe
 

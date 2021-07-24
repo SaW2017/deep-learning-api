@@ -22,7 +22,6 @@ class ShotDetection:
 
         self._detected_shots = []
         self._keyframe_detection(video_frame_list)
-
         if add_concepts_to_keyframe_list:
             self._add_concepts_and_predictions()
 
@@ -47,8 +46,9 @@ class ShotDetection:
 
         return frames
 
-    def _keyframe_detection(self, video_frame_list: KeyFrameDataList, threshold_d: int = 250000,
-                            threshold_h: int = 90000):
+    def _keyframe_detection(self, video_frame_list: KeyFrameDataList, threshold_d: int = 550000,
+                            threshold_h: int = 200000):
+        # old values td 25000, th = 90000 for keyframe_full
         print('[Detecting Keyframes]')
         T_D: int = threshold_d
         T_H: int = threshold_h

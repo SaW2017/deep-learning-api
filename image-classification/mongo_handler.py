@@ -5,7 +5,6 @@ from pprint import pprint
 import numpy as np
 from keyframe import KeyFrameData, KeyframeDocuments
 
-mongo_url: str = '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services'
 
 connect(db="keyframe_test", host="localhost", port=27017)
 
@@ -24,3 +23,5 @@ def store_all_keyframes(video_dict: Dict[str, List[KeyFrameData]]) -> None:
     for key in video_dict.keys():
         for keyframe_data in video_dict[key]:
             store_keyframe(keyframe_data)
+
+
