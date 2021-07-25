@@ -68,7 +68,6 @@ router.route("/filter").get(function (request, response) {
             if (err) {
                 response.send(err);
             } else {
-                console.log('no error');
                 response.json(result);
             }
         });
