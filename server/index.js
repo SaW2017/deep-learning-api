@@ -60,7 +60,7 @@ router.route("/filter").get(function (request, response) {
         let upper_confidence = Number(confidence[1]);
         let regexString = `^.*${concept}.*$`;
 
-        filter = {
+       filter = {
             'concept_confidence': {$elemMatch: {concept: {$regex: regexString, $options: 'i'} , confidence:{$gte: lower_confidence, $lte: upper_confidence}}}
         }
 
