@@ -28,7 +28,7 @@ const confidenceStringHelper = (confidence) => {
     return [conf_split[0], conf_split[1]];
 };
 
-mongoose.connect("mongodb://127.0.0.1:27017/keyframe_test", {
+mongoose.connect("mongodb://127.0.0.1:27017/keyframe_database", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
