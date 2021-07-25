@@ -6,7 +6,7 @@ import numpy as np
 from keyframe import KeyFrameData, KeyframeDocuments
 
 
-connect(db="keyframe_test", host="localhost", port=27017)
+connect(db="keyframe_database", host="localhost", port=27017)
 
 id_count = 0
 
